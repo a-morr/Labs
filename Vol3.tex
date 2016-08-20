@@ -1,50 +1,19 @@
 \documentclass[nociteref]{SIAM-GH-book}
 
-\usepackage{hyperref}
-\usepackage{import}
-\usepackage{amsmath, amsfonts, amscd, amssymb}
-\usepackage{epsfig}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{mathrsfs}
-\usepackage{makeidx}
-\usepackage{multicol}
-\usepackage{algorithmicx}
-\usepackage[plain]{algorithm}
-\usepackage[noend]{algpseudocode}
-\usepackage{color}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{float}
-\usepackage{paralist}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{bbm}
-\usepackage{textcomp}
-\usepackage{tikz}
-\usepackage[framemethod=tikz]{mdframed}
-\usepackage[style=alphabetic,refsection=chapter,backref=true]{biblatex}
-\usepackage{mathtools}
-\usepackage{xcolor}
-\usetikzlibrary{automata,positioning, arrows, backgrounds, calendar, chains, decorations,
-	matrix, mindmap, patterns, petri, shadows, shapes.geometric,
-	trees}
-
-
+% See command.tex for all package imports, environments, and special commands.
 \input{command}
 
 \makeindex
 
-\begin{document}
+\begin{document} % ============================================================
 
-%----------------------------------------------------------------
-%Book cover and Front matter
-\thispagestyle{empty}
+\thispagestyle{empty} % Book cover and Front matter ---------------------------
+
 \begin{center}
-{\Large Labs for Foundations of Applied Mathematics} \\
+{\huge \bf Labs for Foundations of Applied Mathematics} \\
 \vspace{5mm}
-{\Large Volume III: Modeling with Uncertainty and Data}
-\vspace{5mm}
+{\Large \bf Volume III: Modeling with Uncertainty and Data}
+\vspace{20mm}
 
 \includegraphics[scale = .25]{Cover}
 \end{center}
@@ -52,79 +21,62 @@
 
 \include{contributors}
 
-%------------------------------------------------------------------
-%The preface, which will presumably be longer in the future
+\begin{thepreface} % Preface --------------------------------------------------
 
-\begin{thepreface}
 This lab manual is designed to accompany the textbook \emph{Foundations of Applied Mathematics} by Humpherys and Jarvis.
 
 \vfill
 \copyright{This work is licensed under the Creative Commons Attribution 3.0 United States
 License.  You may copy, distribute, and display this copyrighted work only if you give
 credit to Dr.~J.~Humpherys. All derivative works must include an attribution to Dr.~J.~Humpherys as the owner of this work as well as the web address to
-\\\centerline{\url{https://github.com/byuimpact/numerical_computing}}\\ as the original source of
-this
-work.\\To view a copy of the Creative Commons Attribution 3.0 License,
-visit\\\centerline{\url{http://creativecommons.org/licenses/by/3.0/us/}} or send a letter to
-Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
+\\\centerline{\url{https://github.com/Foundations-of-Applied-Mathematics/Labs}}\\as the original source of this work.
+\\To view a copy of the Creative Commons Attribution 3.0 License, visit
+\\\centerline{\url{http://creativecommons.org/licenses/by/3.0/us/}} or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
 
 \vfill
 \centering\includegraphics[height=1.2cm]{by}
 \vfill
 \end{thepreface}
-%-----------------------------------------------------------------
 
 \setcounter{tocdepth}{1}
 \tableofcontents
 
-\mainmatter
+\mainmatter % LABS ============================================================
 
-\part{Labs}
-\subimport{./Python/UnixShell1/}{shell1.tex}
-\subimport{./Python/UnixShell2/}{shell2.tex}
-\subimport{./Python/RegexBasic/}{RegexBasic}
+\part{Labs} % -----------------------------------------------------------------
+\subimport{./Vol3A/UnixShell1/}{shell1.tex}
+\subimport{./Vol3A/UnixShell2/}{shell2.tex}
+\subimport{./Vol3A/RegexBasic/}{RegexBasic}
+\subimport{./Vol3A/SQL/}{DatabaseEssentials}
+\subimport{./Vol3A/AdvancedSQL/}{advanced_sql}
+\subimport{./Vol3A/PandasI/}{PandasI}
+\subimport{./Vol3A/PandasII/}{PandasII}
+\subimport{./Vol3A/PandasIII/}{PandasIII}
+\subimport{./Vol3A/Bokeh/}{bokeh}
 
+\subimport{./Vol3B/WebTech1-Serialization/}{WebTech1}
+\subimport{./Vol3B/WebTech2-InternetProtocol/}{WebTech2}
+\subimport{./Vol3B/WebScraping1/}{WebScraping1}
+\subimport{./Vol3B/WebScraping2/}{WebScraping2}
+\subimport{./Vol3B/PandasIV/}{pandasIV}
+\subimport{./Vol3B/MongoDB/}{MongoDB}
+% MPI
+% Hadoop
+% Spark
 
-\subimport{./Python/Caches/}{Caches}
-\subimport{./Python/Generators/}{Generators}
-
-\subimport{./Python/SQL/}{DatabaseEssentials}
-\subimport{./Python/AdvancedSQL/}{advanced_sql}
-\subimport{./Python/pandas/}{pandas}
-\subimport{./Python/PandasII/}{pandasII}
-
-\subimport{./Python/StateMachines/}{StateMachines}
-
-%\subimport{../../}{BeautifulSoup}
-%\subimport{../../}{Advanced_BS}
-\subimport{./Python/Scrapy/}{scraping}
-\subimport{./Python/WebTechnology/}{WebTechnology}
-
-\subimport{./Labs/MPITrapezoidalRule/}{MPITrapezoidalRule}
-\subimport{./Labs/MPICollectiveCommunication/}{MPICollectiveCommunication}
-\subimport{./Python/MongoDB/}{MongoDB}
-\subimport{./Python/cython_wrapping/}{cython_wrapping}
-
-\subimport{./Labs/KalmanFilter/}{kalman}
-\subimport{./Labs/ARMA_Models/}{TimeSeries}
-\subimport{./Labs/NaiveBayes/}{naivebayes}
-
-\subimport{./Labs/HMM/}{hmm}
-\subimport{./Labs/SpeechRecognition/}{speechrecognition}
-
-\subimport{./Labs/LDA/}{lda}
-\subimport{./Labs/Metropolis/}{metropolis}
-
-\subimport{./Labs/PCA_LSI/}{PCA_LSI}
-
-\subimport{./Labs/KMeans/}{kmeans}
-\subimport{./Labs/LogisticRegression/}{LogReg}
-\subimport{./Labs/GMM/}{gmm}
-\subimport{./Labs/CrimeMapping/}{crimemapping}
-
-\subimport{./Labs/CART/}{cart}
-\subimport{./Labs/TitanicSurvival/}{randomforest}
-\subimport{./Labs/KNNSVM/}{knnsvm}
-\subimport{./Labs/ImageRecognition/}{imagerecognition}
+\part{Machine Learning Algorithms} % ------------------------------------------
+\subimport{./MachineLearning/KalmanFilter/}{KalmanFilter}
+\subimport{./MachineLearning/ARMA/}{ARMA}
+\subimport{./MachineLearning/HMM/}{HMM}
+\subimport{./MachineLearning/GMM/}{GMM}
+\subimport{./MachineLearning/CDHMM/}{CDHMM}
+\subimport{./MachineLearning/LDA/}{LDA}
+\subimport{./MachineLearning/Metropolis/}{Metropolis}
+\subimport{./MachineLearning/PCA-LSI/}{PCA-LSI}
+\subimport{./MachineLearning/NaiveBayes/}{NaiveBayes}
+\subimport{./MachineLearning/LogisticRegression/}{LogisticRegression}
+\subimport{./MachineLearning/CART/}{CART}
+\subimport{./MachineLearning/RandomForest/}{RandomForest}
+\subimport{./MachineLearning/KNN-SVM/}{KNN-SVM}
 
 \end{document}

@@ -40,7 +40,7 @@ points. The if __name__ == '__main__' clause imports the solutions file and
 grades it.
 """
 
-# Wrappers ====================================================================
+# Decorators ==================================================================
 
 import signal
 from functools import wraps
@@ -68,40 +68,44 @@ def _timeout(seconds):
         This decorator uses signal.SIGALRM, which is only available on Unix.
     """
     assert isinstance(seconds, int), "@timeout(sec) requires an int"
-    
+
     class TimeoutError(Exception):
         pass
 
     def _handler(signum, frame):
         """Handle the alarm by raising a custom exception."""
-        raise TimeoutError("Timeout after {0} seconds".format(seconds))
+        message = "Timeout after {} seconds".format(seconds)
+        print(message)
+        raise TimeoutError(message)
+
 
     def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             signal.signal(signal.SIGALRM, _handler)
             signal.alarm(seconds)               # Set the alarm.
             try:
-                result = func(*args, **kwargs)
+               return func(*args, **kwargs)
             finally:
                 signal.alarm(0)                 # Turn the alarm off.
-            return result
-        return wraps(func)(wrapper)
+        return wrapper
     return decorator
 
-# Test Script and Class =======================================================
+# Test Driver =================================================================
 
+from inspect import getsourcelines
 # from solutions import [functions / classes that are needed for testing]
 
 def test(student_module):
     """Grade a student's entire solutions file.
-    
+
     X points for problem 1
     X points for problem 2
     ...
-    
+
     Inputs:
         student_module: the imported module for the student's file.
-    
+
     Returns:
         score (int): the student's score, out of TOTAL.
         feedback (str): a printout of test results for the student.
@@ -124,18 +128,17 @@ class _testDriver(object):
         """Initialize the feedback attribute."""
         self.feedback = ""
 
-    # Main routine -----------------------------------------------------------
-    def test_all(self, student_module, total=100):
+    # Main routine ------------------------------------------------------------
+    def test_all(self, student_module, total=40):
         """Grade the provided module on each problem and compile feedback."""
         # Reset feedback and score.
         self.feedback = ""
         self.score = 0
 
-        def test_one(problem, number, value):
+        def test_one(problem, label, value):
             """Test a single problem, checking for errors."""
             try:
-                self.feedback += "\n\nProblem {} ({} points):".format(
-                                                                number, value)
+                self.feedback += "\n\n{} ({} points):".format(label, value)
                 points = problem(student_module)
                 self.score += points
                 self.feedback += "\nScore += {}".format(points)
@@ -143,8 +146,8 @@ class _testDriver(object):
                 self.feedback += "\n{}: {}".format(self._errType(e), e)
 
         # Grade each problem.
-        test_one(self.problem1, 1, 0)   # Problem 1: X points.
-        test_one(self.problem2, 2, 0)   # Problem 2: X points.
+        test_one(self.problem1, "Problem 1", 0)   # Problem 1: X points.
+        test_one(self.problem2, "Problem 2", 0)   # Problem 2: X points.
 
         # Report final score.
         percentage = (100. * self.score) / total
@@ -165,38 +168,36 @@ class _testDriver(object):
         """Get just the name of the exception 'error' in string format."""
         return str(type(error).__name__)
 
+    @staticmethod
+    def _printCode(f):
+        """Print a function's source code."""
+        print "".join(getsourcelines(f)[0][len(f.__doc__.splitlines())+1 :])
+
+    def _checkCode(self, func, keyword):
+        """Check a function's source code for a key word. If the word is found,
+        print the code to the screen and prompt the grader to check the code.
+        Use this function to detect cheating. Returns a score out of 10.
+        """
+        code = getsourcelines(func)[0][len(func.__doc__.splitlines())+1 :]
+        if any([keyword in line for line in code]):
+            print("\nStudent {}() code:\n{}\nCheating? [OK=10, Bad=0]".format(
+                                                func.__name__, "".join(code)))
+            return self._grade(10)
+        return 10
+
     def _eqTest(self, correct, student, message):
         """Test to see if 'correct' and 'student' are equal.
         Report the given 'message' if they are not.
         """
+        # if np.allclose(correct, student):
+        # if str(correct) == str(student):
+        # if correct is student:            # etc.
         if correct == student:
             return 1
         else:
             self.feedback += "\n{}".format(message)
             self.feedback += "\n\tCorrect response: {}".format(correct)
             self.feedback += "\n\tStudent response: {}".format(student)
-            return 0
-
-    def _strTest(self, correct, student, message):
-        """Test to see if 'correct' and 'student' have the same string
-        representation. Report the given 'message' if they are not.
-        """
-        if str(correct) == str(student):
-            return 1
-        else:
-            self.feedback += "\n{}".format(message)
-            self.feedback += "\n\tCorrect response: {}".format(correct)
-            self.feedback += "\n\tStudent response: {}".format(student)
-            return 0
-
-    def _evalTest(self, expression, correct, message):
-        """Test a boolean 'expression' to see if it is 'correct'.
-        Report the given 'message' if it is not.
-        """
-        if expression is correct:
-            return 1
-        else:
-            self.feedback += "\n{}".format(message)
             return 0
 
     def _grade(self, points, message=None):
@@ -237,6 +238,8 @@ class _testDriver(object):
 if __name__ == '__main__':
     """Validate the test driver by testing the solutions file."""
     import solutions
-    score, feedback = test(solutions)
-
-# END OF FILE =================================================================
+    # If you really like using IPython for validation, include these lines:
+    # from imp import reload        # Python 3.0-3.3
+    # from importlib import reload  # Python 3.4+
+    # reload(solutions)
+    test(solutions)

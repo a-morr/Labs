@@ -45,10 +45,12 @@ Thumbs.db
 *.sav
 
 ################
-# Binary files #
+# Binary files, EXCEPT .pdf and .png (preferred picture files). #
 ################
-*.pdf
-*.png
+Vol[1234].pdf
+ExtraLabs.pdf
+InstructorNotes.pdf
+onelab.pdf
 *.eps
 *.tif
 *.gif
@@ -94,13 +96,13 @@ pip-log.txt
 .coverage
 .tox
 
-#Translations
+# Translations
 *.mo
 
-#Mr Developer
+# Mr Developer
 .mr.developer.cfg
 
-#IPython notebook directories
+# IPython notebook directories
 .ipynb_checkpoints/
 
 ############
@@ -129,16 +131,5 @@ build/
 !*.m
 !*.tex
 !*.txt
+onelab.tex
 
-##########################
-# Project Specific Files #
-##########################
-Python/cython/dot.c
-Python/cython/hello.c
-Python/cython/rowdot.c
-Python/cython/solutions.c
-Python/cython_wrapping/ctridiag/cython_ctridiag.c
-Python/cython_wrapping/ftridiag/cython_ftridiag.c
-Python/cython_wrapping/fssor/cython_fssor.c
-Python/cython_wrapping_cpp/pypermutation.c
-Python/cython_wrapping_cpp/pypermutation_incomplete.c

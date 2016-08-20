@@ -1,3 +1,6 @@
+# travis_common.py
+"""Tools used by both travis_pre.py and travis_post.py."""
+
 import warnings
 
 class BuildError(Exception):

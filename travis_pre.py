@@ -1,40 +1,41 @@
-import os
-import sys
+# travis_pre.py
+"""Make sure that there are no unapproved files exceeding the max filesize."""
 
-import travis_common as tc
+from os import popen
+from travis_common import raise_msg
 
 
-# 100KB in bytes
-MAX_FILESIZE = 104400
+# 200KB in bytes
+MAX_FILESIZE = 204800
 
 def getOutput(cmd):
-    return os.popen(cmd).read()
+    return popen(cmd).read()
 
 def find_big_files(fatal=True):
-    #load the exception file
-    exceptions = set()
-    with open('travis_file_exceptions', 'rU') as e:
-        for L in e:
-            exceptions.add(tuple(map(str.strip, L.split())))
-        
-    revisions = getOutput("git rev-list HEAD").split()
+
+    # Load the names of the files listed in the exceptions file.
+    with open('travis_file_exceptions', 'rU') as ex:
+        approved_files = {name for name in ex.read().split('\n') if name != ""}
+    
+    # Get the objects in the tree at the most recent commit.
+    this_commit = getOutput("git rev-list HEAD").split()[0]
+    tree = getOutput("git ls-tree -rlz {}".format(this_commit)).split("\0")
+
+    # Check that the objects in the tree are not too big.
     violations = set()
-    for r in revisions:
-        tree = getOutput("git ls-tree -rlz {}".format(r)).split("\0")
-        for obj in tree:
-            try:
-                data = obj.split()
-                commit, size, name = data[2], int(data[3]), data[4]
-                if (commit, name) not in exceptions and size > MAX_FILESIZE:
-                    violations.add((size, commit, name))
-            except (IndexError, ValueError):
-                continue
+    for obj in tree:
+        try:
+            data = obj.split()
+            size, name = int(data[3]), data[4]
+            if name not in approved_files and size > MAX_FILESIZE:
+                violations.add((name, size))
+        except (IndexError, ValueError):
+            continue
     
     if violations:
-        for v in sorted(violations, reverse=True):
-            print "{} {} {}".format(*v)
-        tc.raise_msg("Large files present", fatal=fatal, category=tc.BuildWarning)
-            
+        files = "\n".join(sorted(["\t{:.<50}{:.>20} bytes".format(*v)
+                                                        for v in violations]))
+        raise_msg("Large files present:\n{}\n".format(files), fatal=fatal)
 
 if __name__ == "__main__":
-    find_big_files()
+    find_big_files(True)

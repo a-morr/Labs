@@ -1,51 +1,18 @@
 \documentclass[nociteref]{SIAM-GH-book}
 
-\usepackage{hyperref}
-\usepackage{import}
-\usepackage{amsmath, amsfonts, amscd, amssymb}
-\usepackage{epsfig}
-\usepackage{graphicx}
-\usepackage{url}
-\usepackage{mathrsfs}
-\usepackage{makeidx}
-\usepackage{color}
-\usepackage{verbatim}
-\usepackage{listings}
-\usepackage{multicol}
-\usepackage{algorithmicx}
-\usepackage[plain]{algorithm}
-\usepackage[noend]{algpseudocode}
-\usepackage{float}
-\usepackage{paralist}
-\usepackage{caption}
-\usepackage{subcaption}
-\usepackage{textcomp}
-\usepackage[framemethod=tikz]{mdframed}
-\usepackage[style=alphabetic,refsection=chapter,backref=true]{biblatex}
-\usepackage{tikz}
-\usetikzlibrary{shapes,arrows, automata, backgrounds, calendar, chains, decorations,
-	matrix, mindmap, patterns, petri, positioning, shadows, shapes.geometric,
-	trees}
-
-\usepackage{mathtools}
-
-
+% See command.tex for all package imports, environments, and special commands.
 \input{command}
 
 \makeindex
 
-\begin{document}
+\begin{document} % ============================================================
 
-% INTRODUCTION ================================================================
-
-% Book cover and Front matter -------------------------------------------------
-\thispagestyle{empty}
+\thispagestyle{empty} % Book cover and Front matter ---------------------------
 
 \begin{center}
 {\huge \bf Labs for Foundations of Applied Mathematics} \\
 \vspace{5mm}
-{\Large \bf Volume II: Algorithm
-Design and Optimization}
+{\Large \bf Volume II: Algorithm Design and Optimization}
 \vspace{20mm}
 
 \includegraphics[scale = .25]{Cover}
@@ -54,134 +21,66 @@ Design and Optimization}
 
 \include{contributors}
 
-% The preface -----------------------------------------------------------------
+\begin{thepreface} % Preface --------------------------------------------------
 
-\begin{thepreface}
 This lab manual is designed to accompany the textbook \emph{Foundations of Applied Mathematics} by Humpherys and Jarvis.
 
 \vfill
 \copyright{This work is licensed under the Creative Commons Attribution 3.0 United States
 License.  You may copy, distribute, and display this copyrighted work only if you give
 credit to Dr.~J.~Humpherys. All derivative works must include an attribution to Dr.~J.~Humpherys as the owner of this work as well as the web address to
-\\\centerline{\url{https://github.com/byuimpact/numerical_computing}}\\ as the original source of
-this
-work.\\To view a copy of the Creative Commons Attribution 3.0 License,
-visit\\\centerline{\url{http://creativecommons.org/licenses/by/3.0/us/}} or send a letter to
-Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
+\\\centerline{\url{https://github.com/Foundations-of-Applied-Mathematics/Labs}}\\as the original source of this work.
+\\To view a copy of the Creative Commons Attribution 3.0 License, visit
+\\\centerline{\url{http://creativecommons.org/licenses/by/3.0/us/}} or send a letter to Creative Commons, 171 Second Street, Suite 300, San Francisco, California, 94105, USA.}
 
 \vfill
 \centering\includegraphics[height=1.2cm]{by}
 \vfill
 \end{thepreface}
-% End of preface --------------------------------------------------------------
 
 \setcounter{tocdepth}{1}
 \tableofcontents
 
-\mainmatter
+\mainmatter % LABS ============================================================
 
-% LABS ========================================================================
+\part{Python Essentials} % Introductory Labs ----------------------------------
+\subimport{./Introduction/PythonIntro/}{PythonIntro}
+\subimport{./Introduction/StandardLibrary/}{StandardLibrary}
+\subimport{./Introduction/NumpyIntro/}{NumpyIntro}
+\subimport{./Introduction/OOP/}{OOP}
+\subimport{./Introduction/PlottingIntro/}{PlottingIntro}
+\subimport{./Introduction/Exceptions/}{Exceptions}
 
-% Introductory Labs -----------------------------------------------------------
-\part{Python Essentials}
-% Getting Started
-\subimport{./Python/GettingStarted/}{GettingStarted}
-% Standard Library
-\subimport{./Python/StandardLibrary/}{stdlib}
-% NumPy and SciPy
-\subimport{./Python/Arrays/}{Arrays}
-% Matplotlib
-\subimport{./Python/matplotlib/}{matplotlib}
-% Object Oriented Programming
-\subimport{./Python/OOP/}{ObjectOriented}
-% Exceptions and File I/O
-\subimport{./Python/Exceptions/}{Exceptions}
+\part{Labs} % Volume II Labs --------------------------------------------------
+\subimport{./Vol2A/DataStructures1-LinkedLists/}{DS1}
+\subimport{./Vol2A/DataStructures2-Trees/}{DS2}
+\subimport{./Vol2A/DataStructures3-KDT/}{DS3}
+\subimport{./Vol2A/BFS-KBacon/}{BFS}
+\subimport{./Vol2A/MarkovChains/}{MarkovChains}
+\subimport{./Vol2A/Fourier1-FFT/}{Fourier1}
+\subimport{./Vol2A/Fourier2-Convolution/}{Fourier2}
+\subimport{./Vol2A/Wavelets/}{Wavelets}
+\subimport{./Vol2A/GaussianQuadrature/}{GaussianQuadrature}
 
-% Volume II Labs --------------------------------------------------------------
-\part{Data Structures and Graph Algorithms}
-% Data Structures I: Linked Lists
-\subimport{./Python/DataStructures1/}{LinkedLists}
-% Data structures II: Trees
-\subimport{./Python/DataStructures2/}{BSTrees}
-% Nearest Neighbor: k-d trees and Postal Data
-\subimport{./Labs/NearestNeighbor/}{Neighbor}
-% BFS: Kevin Bacon
-\subimport{./Labs/KevinBacon/}{Bacon}
-\part{Probabilistic Algorithms}
-% Markov Chains
-\subimport{./Labs/MarkovChains/}{Markov}
-\part{Fourier Analysis}
-% Fourier Analysis: The Fast Fourier Transfrom
-\subimport{./Labs/FFT/}{fft}
-% Fourier Analysis: Filtering and Convolution (balloon pop)
-\subimport{./Labs/FilteringConvolution/}{Filtering_and_Convolution}
-% Fourier Analysis: Wavelets (fingerprints)
-\subimport{./Labs/Wavelets/}{Haar}
-% Gaussian Quadrature
-\subimport{./Labs/GaussianQuadrature/}{GaussQuad}
+\subimport{./Vol2B/scipyoptimize/}{scipyoptimize}
+\subimport{./Vol2B/CVXOPT/}{CVXOPT}
+% 1-D Optimization %
+\subimport{./Vol2B/Simplex/}{Simplex}
+% n-D Optimization 1, and 2 (and 3?) (merging with Conjugate Gradient) %
+\subimport{./Vol2B/ConjugateGradient/}{ConjugateGradient}
+\subimport{./Vol2B/InteriorPoint1-Linear/}{InteriorPoint1}
+\subimport{./Vol2B/InteriorPoint2-Quadratic/}{InteriorPoint2}
+\subimport{./Vol2B/DynamicOpt1-Value/}{DynamicOpt1}
+\subimport{./Vol2B/DynamicOpt2-Policy/}{DynamicOpt2}
 
-% Semester Break
-
-\part{Optimization}
-% Optimization Pkg: scipy.optimize
-\subimport{./Python/scipyoptimize/}{scipyoptimize}
-% Optimization Pkg: CVXOPT
-\subimport{./Python/cvxopt/}{cvxopt}
-% Optimization: Line Search
-\subimport{./Labs/LineSearch/}{LineSearch}
-% Linear Optimization: Simplex (2 weeks)
-\subimport{./Labs/Simplex/}{Simplex}
-% Compress Sensing
-\subimport{./Labs/CompressedSensing/}{CompSense}
-% Optimization: Conjugate Gradient
-\subimport{./Labs/ConjugateGradient/}{ConjugateGradient}
-% Optimization: Trust Region
-\subimport{./Labs/TrustRegion/}{TrustRegion}
-% Optimization: Interior Point I
-\subimport{./Labs/InteriorPoint1/}{InteriorPoint1}
-% Optimization: Interior Point II
-\subimport{./Labs/InteriorPoint2/}{InteriorPointII}
-% Dynamic Optimization: Value Function Iteration
-\subimport{./Labs/ValueFunctionIteration/}{VFI}
-% Dynamic Optimization: Policy Function Iteration
-\subimport{./Labs/PolicyFunctionIteration/}{Policy_Function_Iteration}
-
-% ORPHANS =====================================================================
-
-% % Floating Point: IEEE
-% \subimport{./Labs/FloatingPointIEEE/}{float}
-
-% % Floating Point: Error
-% \subimport{./Labs/FloatingPointError/}{floatbreak}
-
-% % Public Key Encryption: RSA
-% \subimport{./Labs/RSA/}{Encryption}
-
-% % Kruskal's Algorithm
-% \subimport{./Labs/MST/}{mst}
-
-% % Pseudorandom Number Generators: Blackjack
-% \subimport{./Labs/PRNG/}{PRNG}
-
-% % Statistical Distributions
-% \subimport{./Labs/Distributions/}{Distributions}
-
-% % Regression
-% \subimport{./Labs/LinearRegression/}{Regressions}
-
-% % Fourier Analysis: Fourier Extensions
-% \subimport{./Labs/FourierExtensions/}{FourierExtensions}
-
-% % Interpolation: Barycentric Interpolation
-% \subimport{./Labs/BarycentricInterpolation/}{Barycentric}
-
-% % Interpolation: Newton Cotes Integration
-% \subimport{./Labs/NewtonCotes/}{NCInteg}
-
-% % Interpolation: Chebyshev Interpolation
-% \subimport{./Labs/ChebyshevPolynomials/}{chebyshev_interp}
-
-% % Dynamic Optimization: Bayesian Bandits
-% \subimport{./Labs/MultiArmedBandit/}{Bandits}
+\part{Appendices} % Relevant Appendices ---------------------------------------
+\begin{appendices}
+\subimport{./Appendices/installguide/}{InitialInstall}
+\subimport{./Appendices/installguide/}{UpdateInstall}
+\subimport{./Introduction/NumpyIntro/}{VisualGuide}
+\subimport{./Appendices/mpltables/}{mpltables}
+\subimport{./Appendices/f2py/}{f2py}
+\subimport{./Appendices/Git/}{git}
+\end{appendices}
 
 \end{document}

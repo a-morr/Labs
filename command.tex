@@ -1,22 +1,69 @@
 %------------------------------------------------------------------------------%
 % command.tex                                                                  %
-% This file contains the various environments and other misc. commands         %
+% This file contains the various package imports, environment declarations,
+% and other misc. commands.
+%
 %------------------------------------------------------------------------------%
 
-%%%%%%%%%%%%%%%%%%%%%
-% Document settings
-%%%%%%%%%%%%%%%%%%%%%
-%set lengths that are pleasing for screen display.
+% \usepackage{pkgloader}            % Use this to resolve package dependencies
+
+\usepackage{algorithmicx}
+\usepackage{amsmath, amsfonts, amscd, amssymb}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{blkarray}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{epsfig}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage{listings}
+\usepackage{mathrsfs}
+\usepackage{mathtools}
+\usepackage{makeidx}
+\usepackage{multicol}
+\usepackage{paralist}
+\usepackage{relsize}
+\usepackage{subcaption}
+\usepackage{textcomp}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage{xparse}
+\usepackage{xcolor}
+\usepackage{url}
+
+\usepackage[plain]{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage[style=alphabetic,refsection=chapter,backref=true]{biblatex}
+\usepackage[customcolors]{hf-tikz}
+\usepackage[framemethod=tikz]{mdframed}
+
+% \LoadPackagesNow                  % Use this to resolve package dependencies
+
+\usetikzlibrary{arrows, automata, backgrounds, calendar, chains, decorations,
+    matrix, mindmap, patterns, petri, positioning, shadows, shapes.geometric,
+    trees, shapes, decorations.pathreplacing}
+
+% Document settings ===========================================================
+
+\hfsetfillcolor{red!02}
+\hfsetbordercolor{red}
+
+% Set lengths that are pleasing for screen display.
 \setlength{\paperheight}{11in}
 \setlength{\paperwidth}{8.5in}
 
-%set paragraph skips and line spacing
+% Set paragraph skips and line spacing
 \linespread{1.05}
 \setlength{\parskip} {2pt plus1pt minus1pt}
 
 \makeatletter
-%Make all floats centered
+
+% Make all floats centered
 \g@addto@macro\@floatboxreset\centering
+
 % Reset footnote counter every chapter
 \@addtoreset{footnote}{chapter}
 \makeatother
@@ -31,16 +78,13 @@
 }
 \makeatother
 
+% Bibliography settings =======================================================
 
-%%%%%%%%%%%%%%%%%%%%%%%%
-%Bibliography settings
-%%%%%%%%%%%%%%%%%%%%%%%%
 \addbibresource{references.bib}
 \renewcommand{\bibname}{References}
 
-%%%%%%%%%%%%%%%%%
-% Lab Commands
-%%%%%%%%%%%%%%%%%
+% Lab Commands ================================================================
+
 \renewcommand{\chaptername}{Lab}
 \newcommand{\lab}[2]{\chapter[#2]{#1}}
 \newcommand{\objective}[1]{{\bf Lab Objective: } \emph{#1} \bigskip}
@@ -48,9 +92,9 @@
 %% Full line comments in the Algorithmic environment.
 \algnewcommand{\LineComment}[1]{\State \(\triangleright\) #1}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Misc. Environments
-%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Misc. Environments ==========================================================
+
 \newcounter{problemnum}[chapter]
 \newenvironment{problem}{\begin{mdframed}[style=problem]\begin{problemnum}}{\end{problemnum}\end{mdframed}}
 \newtheoremup{problemnum}{Problem}
@@ -58,9 +102,8 @@
 \newenvironment{problem*}{\begin{mdframed}[style=problem]\begin{problemnum*}}{\end{problemnum*}\end{mdframed}}
 \newtheoremup{problemnum*}[problemnum]{*Problem}
 
-%%%%%%%%%%%%%%%%%%%%%%%
-% Colors
-%%%%%%%%%%%%%%%%%%%%%%%
+% Colors ======================================================================
+
 \definecolor{shadecolor}{RGB}{186, 207, 188}
 \definecolor{warning}{RGB}{255, 188, 163}
 \definecolor{warnline}{RGB}{255, 15, 15}
@@ -71,9 +114,9 @@
 \definecolor{codecomment}{RGB}{108, 153, 8}
 \definecolor{codestring}{RGB}{203, 75, 22}
 
-%%%%%%%%%%%%%%%%%%%%%%%
-% Frame environments
-%%%%%%%%%%%%%%%%%%%%%%%
+
+% Frame environments ==========================================================
+
 \mdfdefinestyle{problem}{backgroundcolor=shadecolor,
                          hidealllines=true,
                          skipabove=10pt,
@@ -101,7 +144,7 @@
   frametitlefont=\large\bfseries,
   frametitleaboveskip=1em,
   frametitlerule=true,
-  frametitle={\sc Warning}
+  frametitle={\sc Achtung!}
 ]{warn}
 
 
@@ -128,9 +171,8 @@
   frametitle={\sc Note}
 ]{info}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Listings Environments
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Listings Environments ======================================================
+
 % Default Environment
 \lstset{
         language=Python,
@@ -158,7 +200,8 @@
         captionpos=b,
         abovecaptionskip=-5pt,
         belowcaptionskip=-5pt,
-        moredelim=[is][\color{black}]{<<}{>>}
+        moredelim=[is][\color{black}]{<<}{>>},
+        moredelim=[is][\color{red}]{<r<}{>r>}
 }
 
 % \surroundwithmdframed[
@@ -196,23 +239,24 @@
 \newcommand{\li}[1]{\lstinline[prebreak=]!#1!}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Special Math Characters
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\def\0{{\bf 0}}
-\def\a{{\bf a}}
-\def\b{{\bf b}}
-\def\e{{\bf e}}
-\def\f{{\bf f}}
-\def\g{{\bf g}}
-\def\p{{\bf p}}
-\def\q{{\bf q}}
-\def\u{{\bf u}}
-\def\v{{\bf v}}
-\def\w{{\bf w}}
-\def\x{{\bf x}}
-\def\y{{\bf y}}
-\def\z{{\bf z}}
+
+% Special Math Characters =====================================================
+
+\def\0{\mathbf{0}}
+\def\a{\mathbf{a}}
+\def\b{\mathbf{b}}
+\def\c{\mathbf{c}}
+\def\e{\mathbf{e}}
+\def\f{\mathbf{f}}
+\def\g{\mathbf{g}}
+\def\p{\mathbf{p}}
+\def\q{\mathbf{q}}
+\def\u{\mathbf{u}}
+\def\v{\mathbf{v}}
+\def\w{\mathbf{w}}
+\def\x{\mathbf{x}}
+\def\y{\mathbf{y}}
+\def\z{\mathbf{z}}
 \def\subspace{\lhd}
 
 \def\CalL{\mathcal{L}}
@@ -224,17 +268,18 @@
 \def\I{\Im m}
 \def\M{M_n}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Various commands that make life easier
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Various commands that make life easier ======================================
+
 \newcommand{\argmax}{\mbox{argmax}}
-\newcommand{\indicator}[1]{\mathbbm{1}_{\left[#1\right] }}
+\newcommand{\indicator}[1]{\mathbb{1}_{\left[#1\right] }}
 \providecommand{\abs}[1]{\left\lvert#1\right\rvert}
 \providecommand{\norm}[1]{\left\lVert#1\right\rVert}
 \providecommand{\set}[1]{\lbrace#1\rbrace}
 \providecommand{\setconstruct}[2]{\lbrace#1:#2\rbrace}
-\providecommand{\Res}[1]{\underset{#1}{Res}}           % Residue
-\newcommand{\trp}{^{\mathsf T}} %matrix transpose
+\providecommand{\Res}[1]{\underset{#1}{Res}}            % Residue
+\newcommand{\trp}{^{\mathsf T}}                         % matrix transpose
+\newcommand{\hrm}{^{\mathsf H}}                         % hermitian conjugate
 
 \newcommand{\ipt}[2]{\langle #1,#2 \rangle}
 \newcommand{\ip}{\int_{-\infty}^{+\infty}}
@@ -242,31 +287,31 @@
 \renewcommand{\ker}[1]{\mathcal{N}(#1)}
 \newcommand{\ran}[1]{\mathcal{R}(#1)}
 
-%These commands are specifically for use in the pseudocode environment
+% These commands are specifically for use in the pseudocode environment.
 % Load the xparse package to use these commands
-\NewDocumentCommand\allocate{m+g}{		% Empty array
+\NewDocumentCommand\allocate{m+g}{                      % Empty array
   \IfNoValueTF{#2}
-    {\mathrm{empty}(#1)}					% 1 dimension
-    {\mathrm{empty}(#1, #2)}				% 2 dimensions
+    {\mathrm{empty}(#1)}                                % 1 dimension
+    {\mathrm{empty}(#1, #2)}                            % 2 dimensions
 }
 
-\NewDocumentCommand\zeros{m+g}{		% Zero array
+\NewDocumentCommand\zeros{m+g}{                         % Zero array
   \IfNoValueTF{#2}
     {\mathrm{zeros}(#1)}
     {\mathrm{zeros}(#1, #2)}%
 }
 
-\newcommand{\Id}[1]{\mathrm{Id}(#1)}		% Identity array
-\newcommand{\makecopy}[1]{\mathrm{copy}(#1)} % Copy an array
-\newcommand{\shape}[1]{\mathrm{shape}(#1)}	
+\newcommand{\Id}[1]{\mathrm{Id}(#1)}                    % Identity array
+\newcommand{\makecopy}[1]{\mathrm{copy}(#1)}            % Copy an array
+\newcommand{\shape}[1]{\mathrm{shape}(#1)}
 \newcommand{\size}[1]{\mathrm{size}(#1)}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Math Operators
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Many of these are for use in the pseudocode environments
+
+% Math Operators ==============================================================
+
+% Many of these are for use in the pseudocode environments.
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\sech}{sech}
-\DeclareMathOperator{\Out}{Out}	%Used in PageRank lab
-\DeclareMathOperator{\In}{In}		%Used in PageRank lab
+\DeclareMathOperator{\Out}{Out}                         % Used in PageRank lab
+\DeclareMathOperator{\In}{In}                           % Used in PageRank lab
 \DeclareMathOperator\erf{erf}
