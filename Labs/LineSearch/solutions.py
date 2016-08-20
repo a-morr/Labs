@@ -69,7 +69,7 @@ def newtonsMethod(f, Df, DDf, x, niter=10):
         x -- initial point
         niter -- integer giving the number of iterations
     Returns:
-        a list, the sequence of points generated
+        a list, the sequence of points generateddo
     '''
     pts = [x.copy()]
     for i in xrange(niter):

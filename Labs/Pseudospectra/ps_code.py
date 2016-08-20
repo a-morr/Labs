@@ -173,7 +173,7 @@ def ps_scatter_plot(A, epsilon=.001, num_pts=100, plot_spec=False):
         y_coords = np.hstack((y_coords, eig_imag))
     plt.scatter(x_coords, y_coords,marker=".")
     x, y = ps_grid(spec_A,100)
-    if plot_spec:
+    if plot_spec:c
         plt.scatter(x_spec,y_spec, marker="o",color='r')
     plt.axis([x[0],x[-1],y[0],y[-1]])
     return fig
