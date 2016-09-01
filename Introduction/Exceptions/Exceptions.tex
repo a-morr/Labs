@@ -488,11 +488,13 @@ If \li{case} is not one of these two values, raise a \li{ValueError}.
 \item \li{reverse()}: write the data to the outfile in reverse order. Include an additional keyword argument \li{unit} that defaults to \li{"line"}.
 
 If \li{unit="word"}, reverse the ordering of the words in each line, but write the lines in the same order as the original file.
-If \li{unit="word"}, reverse the ordering of the lines, but do not change the ordering of the words on each individual line.
+If \li{unit="line"}, reverse the ordering of the lines, but do not change the ordering of the words on each individual line.
 If \li{unit} is not one of these two values, raise a \li{ValueError}.
 
 \item \li{transpose()}: write a ``transposed'' version of the data to the outfile.
 That is, write the first word of each line of the data to the first line of the new file, the second word of each line of the data to the second line of the new file, and so on.
+Viewed as a matrix of words, the rows of the input file then become the columns of the output file, and vice versa.
+You may assume that there are an equal number of words on each line of the input file.
 \end{enumerate}
 
 Also implement the \li{__str__()} magic method so that printing a \li{ContentFilter} object yields the following output:

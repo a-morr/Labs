@@ -9,27 +9,27 @@ As in the last lab, the majority of learning will not be had in finsihing the pr
 By the end of this lab, you will have a solid foundation in Unix.
 You will be able to understand enough to learn any additional topics you want.
 
-\section*{File Security}
-To begin, run the following command while inside the \li{Shell_Lab/Python} directory (created in the prvious lab).
+\section*{File Security} % ====================================================
+
+To begin, run the following command while inside the \texttt{Shell2/Python/} directory (\texttt{Shell2/} is the end product of \texttt{Shell1/} from the previous lab).
 Notice your output will differ from that printed below; this is for learning purposes.
 
 \begin{lstlisting}
-$ ls -l 
+$ ls -l
 -rw-rw-r-- 1 username groupname 194 Aug  5 20:20 calc.py
 -rw-rw-r-- 1 username groupname 373 Aug  5 21:16 count_files.py
 -rwxr-xr-x 1 username groupname  27 Aug  5 20:22 mult.py
 -rw-rw-r-- 1 username groupname 721 Aug  5 20:23 project.py
-
 \end{lstlisting}
 
 Notice the first column of the output.
 The first character denotes the type of the item whether it be a normal file, a directory, a symbolic link, etc.
-The remaining nine characters denote the permissions associated with that file. 
+The remaining nine characters denote the permissions associated with that file.
 Specifically, these permissions deal with reading, wrtiting, and executing files.
 There are three categories of people associated with permissions.
 These are the user (the owner), group, and others.
-For example, look at the output for \li{mult.py}.
-The first character \li{-} denotes that \li{mult.py} is a normal file. 
+For example, look at the output for \texttt{mult.py}.
+The first character \li{-} denotes that \texttt{mult.py} is a normal file.
 The next three characters, \li{rwx} tell us the owner can read, write, and execute the file.
 The next three characters \li{r-x} tell us members of the same group can read and execute the file.
 The final three characters \li{--x} tell us other users can execute the file and nothing more.
@@ -40,50 +40,50 @@ Symbolic permissions notation is easier to use when we want to make small modifi
 See Table \ref{table:symbolic}.
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{chmod u+x file1} & Add executing (\li{x}) permissions to user (\li{u}) \\
 \li{chmod g-w file1} & Remove writing (\li{w}) permissions from group (\li{g}) \\
 \li{chmod o-r file1} & Remove reading (\li{r}) permissions from other other users (\li{o}) \\
 \li{chmod a+w file1} & Add writing permissions to everyone (\li{a}) \\
-\end{tabular} 
+\end{tabular}
 \caption{Symbolic permissions notation}
-\label{table:symbolic} 
-\end{table} 
+\label{table:symbolic}
+\end{table}
 
 Octal permissions notation is easier to use when we want to set all the permissions as once.
 The number 4 corresponds to reading, 2 corresponds to writing, and 1 corresponds to executing.
 See Table \ref{table:octal}.
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{chmod 760 file1} & Sets \li{rwx} to user, \li{rw-} to group, and \li{---} to others \\
 \li{chmod 640 file1} & Sets \li{rw-} to user, \li{r--} to group, and \li{---} to others \\
 \li{chmod 775 file1} & Sets \li{rwx} to user, \li{rwx} to group, and \li{r-x} to others \\
 \li{chmod 500 file1} & Sets \li{r-x} to user, \li{---} to group, and \li{---} to others \\
-\end{tabular} 
+\end{tabular}
 \caption{Octal permissions notation}
-\label{table:octal} 
-\end{table} 
+\label{table:octal}
+\end{table}
 
 The commands in Table \ref{table:chown} are also helpful when working with permissions.
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{chown} & change owner \\
 \li{chgrp} & change group \\
 \li{getfacl} & view all permissions of a file in a readable format. \\
-\end{tabular} 
+\end{tabular}
 \caption{Other commands when working with permissions}
-\label{table:chown} 
-\end{table} 
+\label{table:chown}
+\end{table}
 
-\section*{Scripts}
+\section*{Scripts} % ==========================================================
 
 A shell script is a series of shell commands saved in a file.
 Scripts are useful when we have a process that we do over and over again.
@@ -95,7 +95,7 @@ echo "Hello World"
 \end{lstlisting}
 
 \begin{problem}
-Using vim, create a file called \li{hello} that contains the previous text and save it.
+Using vim, create a file called \texttt{hello} that contains the previous text and save it.
 Note that no file type is necessary.
 \end{problem}
 
@@ -116,7 +116,7 @@ $ ls -l hello
 \end{lstlisting}
 
 \begin{problem}
-Add executable permission to your \li{hello} script.
+Add executable permission to your \texttt{hello} script.
 Run the script again.
 \end{problem}
 
@@ -125,40 +125,42 @@ All you have to do is change the path following the shebang.
 To see where the Python interpreter is stored, run \li{which python}.
 
 \begin{problem}
-In the \li{Python} directory you will find \li{count_files.py}.
-\li{count_files.py} is a python script that counts all the files within the \li{Shell_Lab} directory.
+In the \texttt{Python/} directory you will find \texttt{count\_files.py}.
+\texttt{count\_files.py} is a python script that counts all the files within the \texttt{Shell2/} directory.
 Modify this file so it can be run as a script and change the permissions of this script so the user and group can execute the script.
 
-Note: In the \li{subprocess.check_output} command, if \li{Shell_Lab} is not contained in your home directory ($\thicksim$), you will need to change $\thicksim$ to the correct path to navigate there.
+Note: In the \li{subprocess.check_output} command, if \texttt{Shell2/} is not contained in your home directory ($\thicksim$), you will need to change $\thicksim$ to the correct path to navigate there.
 \end{problem}
 
 If you would like to learn how to run scripts on a set schedule, consider researching \emph{cron jobs}.
 
-\section*{Resource Management}
+\section*{Resource Management} % ==============================================
+
 To be able to optimize performance, it is valuable to always be aware of the resources we are using.
 Hard drive space and computer memory are two resources we must constantly keep in mind.
 The commands found in table \ref{table:resource} are essential to managing resources.
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{df dir1} & Display available disk space in file system containing \li{dir1} \\
 \li{du dir1} & Display disk usage within \li{dir1} [\li{-a}, \li{-h}] \\
 \li{free} & Display amount of free and used memory in the system \\
 \li{ps} & Display a snapshot of current processes \\
 \li{top} & Display interactive list of current processes \\
-\end{tabular} 
+\end{tabular}
 \caption{Commands for resource management}
-\label{table:resource} 
-\end{table} 
+\label{table:resource}
+\end{table}
 
-\section*{Job Control}
+\section*{Job Control} % ======================================================
+
 Let's say we had a series of scripts we wanted to run.
 If we knew that these would take a while to execute, we may want to start them all at the same time and let them run while we are working on something else.
 In table \ref{table:jobs}, we have listed some of the most common commands used in job control.
 We strongly encourage you to experiment with these commands.
-In the \li{Scripts} directory, you will find a \li{five_secs} and a \li{ten_secs} script that takes five seconds and ten seconds to execute respectively.
+In the \texttt{Scripts/} directory, you will find a \texttt{five\_secs} and a \texttt{ten\_secs} script that takes five seconds and ten seconds to execute respectively.
 These will be particularly useful as you are experimenting with these commands.
 
 
@@ -177,9 +179,9 @@ $ jobs
 %$
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{COMMAND \&} & Adding an ampersand to the end of a command \\
 & runs the command in the background \\
 \li{bg \%N} & Restarts the Nth interrupted job in the background \\
@@ -190,25 +192,26 @@ Command & Description
 \li{Ctrl-C} & Terminates current job \\
 \li{Ctrl-Z} & Interrupts current job \\
 \li{nohup} & Run a command that will not be killed if the user logs out \\
-\end{tabular} 
+\end{tabular}
 \caption{Job control commands}
-\label{table:jobs} 
-\end{table} 
+\label{table:jobs}
+\end{table}
 
 \begin{problem}
-In addition to the \li{five_secs} and \li{ten_secs} scripts, the \li{Scripts} folder contains three scripts that will each take about a forty-five seconds to execute. 
-Execute each of these commands in the background so all three are running at the same time. To verify all scripts are running at the same time, write the output of \li{jobs} to a new file \li{log.txt} saved in the \li{Scripts} directory.
+In addition to the \texttt{five\_secs} and \texttt{ten\_secs} scripts, the \texttt{Scripts/} folder contains three scripts that will each take about a forty-five seconds to execute.
+Execute each of these commands in the background so all three are running at the same time. To verify all scripts are running at the same time, write the output of \li{jobs} to a new file \texttt{log.txt} saved in the \texttt{Scripts/} directory.
 \end{problem}
 
-\section*{Python Integration}
+\section*{Python Integration} % ===============================================
+
 To this point, we have barely scratched the surface of all the functionality that Unix has to offer.
-However, the tools and commands we have addressed so far provide us with a foundation of the basics. 
+However, the tools and commands we have addressed so far provide us with a foundation of the basics.
 Using the \li{subprocess} module in Python, we can call Unix commands.
 By combining Python and the Unix commands, our toolset is automatically broadened.
 
 There are two functions in particular within the \li{subprocess} module we will use.
-When wanting to run a Unix command, use \li{subprocess.call()}. 
-When wanting to run a Unix command and be able to store and manipulate the output, use \li{subprocess.check_output()}. 
+When wanting to run a Unix command, use \li{subprocess.call()}.
+When wanting to run a Unix command and be able to store and manipulate the output, use \li{subprocess.check_output()}.
 These functions have a keyword argument \li{shell} that defaults to \li{False}.
 We want to set this argument to \li{True} to run the command in the Unix shell.
 
@@ -248,41 +251,41 @@ We can make it even more accessible by splitting the lines again
 
 \begin{problem}
 Create a \li{Shell} class in Python.
-Write a \li{find_file} method that will search for a filename using the \li{find} command in the given directory.
-Write a \li{find_word} method that finds a given word within the contents of the directory using the \li{grep} command.
+Write a \li{find_file()} method that will search for a filename using the \li{find} command in the given directory.
+Write a \li{find_word()} method that finds a given word within the contents of the directory using the \li{grep} command.
 Both functions should accept a directory keyword as input which defaults to \li{None}.
 If no directory location is provided, then set it to be the current directory within the function.
 For both these functions, return a list of filepaths.
 \end{problem}
 
 \begin{problem}
-Write a method for the \li{Shell} class that recursively finds the \li{n} largest files within a directory.
+Write a method for the \li{Shell} class that recursively finds the $n$ largest files within a directory.
 Have a keyword argument for the directory that defaults to the current directory.
 Be sure that your function only returns files.
-Hint: To view the size of a file \li{file1}, you can use \li{ls -s file1} or \li{du file1}
+Hint: To view the size of a file \texttt{file1}, you can use \li{ls -s file1} or \li{du file1}
 \end{problem}
 
-\section*{System Management}
+\section*{System Management} % ================================================
 
 In this section, we will address some of the basics of system management.
 As an introduction, the commands in table \ref{table:systemadmin} are used to learn more about the computer system.
 
 \begin{table}
-\begin{tabular}{l|l} 
+\begin{tabular}{l|l}
 Command & Description
-\\ \hline 
+\\ \hline
 \li{passwd} & Change user password \\
 \li{uname} & View operating system name \\
 \li{uname -a} & Print all system information \\
 \li{uname -m} & Print machine hardware \\
 \li{w} & Show who is logged in and what they are doing \\
 \li{whoami} & Print userID of current user \\
-\end{tabular} 
+\end{tabular}
 \caption{Commands for system administration.}
-\label{table:systemadmin} 
-\end{table} 
+\label{table:systemadmin}
+\end{table}
 
-\subsection*{Secure Shell}
+\subsection*{Secure Shell} % --------------------------------------------------
 
 Let's say you are working for a company with a file server.
 Hundreds of people need to be able to access the content of this machine, but how is that possible?
@@ -319,7 +322,7 @@ Connection to my_host_name closed.
 
 Now that you are logged in on the host computer, all the commands you execute are as though you were executing them on the host computer.
 
-\subsection*{Secure Copy}
+\subsection*{Secure Copy} % ---------------------------------------------------
 
 When we want to copy files between the client and the host, we use the \emph{secure copy} command, \li{scp}.
 The following commands are run when logged into the client computer.
@@ -331,7 +334,7 @@ $ scp filename host_username@hostname:filepath
 #copy a file found at filepath to the client's system as filename
 $ scp host_username@hostname:filepath filename
 
-# you will be prompted to enter host_username's password in both these instances 
+# you will be prompted to enter host_username's password in both these instances
 \end{lstlisting}
 
 \begin{problem}
@@ -340,23 +343,25 @@ Experiment with SSH. Verify that you can connect from a client to a host.
 Copy a few files between the host and the client.
 \end{problem}
 
-\subsection*{Generating SSH Keys (Optional)}
+\subsection*{Generating SSH Keys (Optional)} % --------------------------------
+
 If there is a host that we access on a regular basis, typing in our password over and over again can get tedious.
 By setting up SSH keys, the host can identify if a client is a trusted user without needing to type in a password.
 If you are interested in experimenting with this setup, a Google search of "How to set up SSH keys" will lead you to many quality tutorials on how to do so.
 
-\section*{Web Related}
+\section*{Web Related} % ------------------------------------------------------
+
 Sometimes you will need to download files from the internet.
 \li{wget} and \li{curl} are both used to download content from the web, and in many applications they both perfform the same tasks.
-Most of the differences between \li{wget} and \li{curl} are beyond the scope of this book. 
+Most of the differences between \li{wget} and \li{curl} are beyond the scope of this book.
 At its most basic, \li{curl} is the more robust tools of the two while \li{wget} can download recursively.
 The provided examples will use \li{wget}.
 
-\subsection*{Downloading files using Wget}
+\subsection*{Downloading files using Wget} % ----------------------------------
 
 When we want to download a single file, we just need the URL for the file we want to download.
 Running the command below will downlad a JPEG image of a person writing on a chalkboard.
-Similarly, you can download PDF files, HTML files, and other content simply by providing a different URL. 
+Similarly, you can download PDF files, HTML files, and other content simply by providing a different URL.
 
 \begin{lstlisting}
 $ wget http://acme.byu.edu/wp-content/uploads/2013/07/0906-13-00903.jpg
@@ -378,24 +383,28 @@ $ wget -r --no-parent URL
 %$
 
 \begin{problem}
-In the \li{Documents} directory, you will find a file named \li{urls.txt} with a list of URLs.
+In the \texttt{Documents/} directory, you will find a file named \texttt{urls.txt} with a list of URLs.
 Download the files in this list using \li{wget}.
-Move the pictures that will be downloaded to the \li{Photos} directory.
+Move the pictures that will be downloaded to the \texttt{Photos/} directory.
 \end{problem}
 
-\section*{Additional Material}
+\newpage
 
-\subsection*{sed and awk}
+\section*{Additional Material} % ==============================================
+
+\subsection*{sed and awk} % ---------------------------------------------------
+
 \li{sed} and \li{awk} are two different scripting languages in their own right.
 Like Unix, these languages are easy to learn but difficult to master.
 It is very common to combine Unix commands and \li{sed} and \li{awk} commands.
 We will address the basics, but if you would like more information see <http://www.theunixschool.com/p/awk-sed.html>
 
-\subsection*{Printing Specific Lines Using sed}
+\subsection*{Printing Specific Lines Using sed} % -----------------------------
+
 We have already used the \li{head} and \li{tail} commands to print the beginning and end of a file respectively.
 What if we wanted to print lines $30$ to $40$, for example?
 We can accomplish this using \li{sed}.
-In the \li{Documents} folder, you will find the \li{lines.txt} file.
+In the \texttt{Documents/} folder, you will find the \texttt{lines.txt} file.
 We will use this file for the following examples.
 
 \begin{lstlisting}
@@ -418,13 +427,13 @@ line 3
 line 4
 
 # Print lines 1,3,5
-$ sed -n -e 1p -e 3p -e 5p lines.txt 
+$ sed -n -e 1p -e 3p -e 5p lines.txt
 line 1
 line 3
 line 5
-\end{lstlisting}  
+\end{lstlisting}
 
-\subsection*{Find and Replace Using sed}
+\subsection*{Find and Replace Using sed} % ------------------------------------
 
 Using \li{sed}, we can also perform find and replace.
 We can perform this function on the output of another commmand or we can perform this function in place on other files.
@@ -432,7 +441,7 @@ The basic syntax of this \li{sed} command is the following.
 
 \begin{lstlisting}
 sed s/str1/str2/g
-\end{lstlisting} 
+\end{lstlisting}
 
 This command will replace every instance of \li{str1} with \li{str2}. More specific examples follow.
 
@@ -462,7 +471,8 @@ LINE 4
 LINE 5
 \end{lstlisting}
 
-\subsection*{Formatting output using awk}
+\subsection*{Formatting output using awk} % -----------------------------------
+
 Earlier in this lab we mentioned \li{ls -l} and as we have seen, this outputs lots of information.
 Using \li{awk}, we can select which fields we wish to print.
 Suppose we only cared about the file name and the permissions.
@@ -485,11 +495,10 @@ awk ' <options> {<actions>} '
 In the remaining examples we will not be using any of the options, but we will address various actions.
 For those interested in learning what options are available see <http://www.theunixschool.com/p/awk-sed.html>.
 
-In the \li{Documents} directory, you will find a \li{people.txt} file that we will use for the following examples.
+In the \texttt{Documents/} directory, you will find a \texttt{people.txt} file that we will use for the following examples.
 In our first example, we use the \li{print} action.
 The \li{\$1} and \li{\$9} mean that we are going to print the first and ninth fields.
 Beyond specifying which fields we wish to print, we can also choose how many characters to allocate for each field.
-
 
 \begin{lstlisting}
 # contents of people.txt
@@ -525,10 +534,10 @@ The statement \li{"\%-6s \%2s \%s\\n"} formats the columns of the output.
 This says to set aside six characters left justied, then two characters right justified, then print the last field to its full length.
 
 \begin{problem}
-Inside the \li{Documents} directory, you should find a file named \li{files.txt}.
+Inside the \texttt{Documents/} directory, you should find a file named \texttt{files.txt}.
 This file contains details on approximately one hundred files.
 The different fields in the file are separated by tabs.
-Using \li{awk}, \li{sort}, pipes, and redirects, write a file named \li{date_modified.txt} with the following specifications:
+Using \li{awk}, \li{sort}, pipes, and redirects, write a file named \texttt{date\_modified.txt} with the following specifications:
 \begin{itemize}
 \item in the first column, print the date the file was modified
 \item in the second column, print the name of the file
@@ -538,17 +547,17 @@ All this can be accomplished using one command.
 \end{problem}
 
 We have barely scratched the surface of what \li{awk} can do.
-Performing an internet search for "awk one-liners" will give you many additional examples of useful commands you can run using \li{awk}. 
+Performing an internet search for "awk one-liners" will give you many additional examples of useful commands you can run using \li{awk}.
 
 \begin{comment}
-\section*{One Final Note}
+\section*{One Final Note} % ===================================================
 Though there are multiple Unix shells, one of the most popular is the \emph{bash} shell.
 The bash shell is highly customizeable.
-In your home directory, you will find a hidden file named \li{.bashrc}.
+In your home directory, you will find a hidden file named \texttt{.bashrc}.
 All customization changes are saved in this file.
 If you are interested in customizing your shell, you can customize the prompt using the \li{PS1} environment variable.
 As you become more and more familiar with the Unix shell, you will come to find there are commands you run over and over again.
 You can save commands you use frequently using \li{alias}.
 If you would like more information on these and other ways to customize the shell, you can find many quality reference guides and tutorials on the internet.
 \end{comment}
- 
+
