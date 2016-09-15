@@ -21,19 +21,19 @@ def old_test(student_module):
         feedback += "\n\nProblem 6 (10 points):"
         points = 0
         sBacon = s.BaconSolver()
-        
+
         try: # Test invalid input
             sBacon.path_to_bacon("Bad Name")
             feedback += "\n\tBaconSolver.path_to_bacon(x) failed"
             feedback += " to raise an exception for invalid x"
         except ValueError: points += 2
-        
+
         try: # Test no connection to Kevin Bacon
             sBacon.path_to_bacon("Arandi, Jose")
             feedback += "\n\tBaconSolver.path_to_bacon('Arandi, Jose') failed"
             feedback += " to raise an exception for no connection to target"
         except nx.NetworkXNoPath: points += 2
-        
+
         # Test BaconSolver.path_to_bacon() for valid cases
         print("Student path from 'Thurman, Uma' to 'Bacon, Kevin':")
         print(sBacon.path_to_bacon('Thurman, Uma'))
@@ -58,13 +58,13 @@ def old_test(student_module):
         feedback += "\n\nProblem 7 (10 points):"
         points = 0
         sBacon = s.BaconSolver()
-        
+
         try: # Test invalid input
             sBacon.bacon_number("Bad Name")
             feedback += "\n\tBaconSolver.bacon_number(x) failed"
             feedback += " to raise an exception for invalid x"
         except ValueError: points += 1
-        
+
         try: # Test no connection to Kevin Bacon
             sBacon.bacon_number("Arandi, Jose")
             feedback += "\n\tBaconSolver.bacon_number('Arandi, Jose') failed"
@@ -80,7 +80,7 @@ def old_test(student_module):
         else:
             feedback += "\n\tBaconSolver.bacon_number("
             feedback += "'Clooney, George', 'Damon, Matt') failed"
-        
+
         # Test BaconSolver.average_bacon()
         average, isolated = sBacon.average_bacon()
         if 847 == isolated: points += 2
@@ -91,7 +91,7 @@ def old_test(student_module):
         else:
             feedback += "\n\tBaconSolver.average_bacon() failed"
             feedback += " for average Bacon number"
-        
+
         score += points; feedback += "\nScore += " + str(points)
     except Exception as e: feedback += "\nError: " + e.message
 
@@ -102,7 +102,7 @@ def old_test(student_module):
             sBacon.plot_bacon()
             p,f = grade(3, "\n\tBaconSolver.plot_bacon() failed")
             points += p; feedback += f
-            
+
             score += points; feedback += "\nScore += " + str(points)
         except Exception as e: feedback += "\nError: " + e.message
 
@@ -117,10 +117,10 @@ def test(student_module):
     10 points for problem 6
     10 points for problem 7
      3 points for problem 8 (Extra Credit)
-    
+
     Inputs:
         student_module: the imported module for the student's file.
-    
+
     Returns:
         score (int): the student's score, out of 80.
         feedback (str): a printout of test results for the student.
@@ -136,60 +136,47 @@ class _testDriver(object):
     def __init__(self):
         self.feedback = ""
 
-    def test_all(self, student_module):
-        """Grade each problem...TODO"""
+    def test_all(self, student_module, total=50):
+        """Grade the provided module on each problem and compile feedback."""
+        # Reset feedback and score.
         self.feedback = ""
-        score = 0
+        self.score = 0
 
-        try:    # Problem 1: 5 points
-            self.feedback += "\n\nProblem 1 (5 points):"
-            points = self.problem1(student_module)
-            score += points
-            self.feedback += "\nScore += " + str(points)
-        except BaseException as e:
-            self.feedback += "\nError: " + e.message
-        
-        try:    # Problem 2: 10 points
-            self.feedback += "\n\nProblem 2 (10 points):"
-            points = self.problem2(student_module)
-            score += points
-            self.feedback += "\nScore += " + str(points)
-        except BaseException as e:
-            self.feedback += "\nError: " + e.message
+        def test_one(problem, label, value):
+            """Test a single problem, checking for errors."""
+            try:
+                self.feedback += "\n\n{} ({} points):".format(label, value)
+                points = problem(student_module)
+                self.score += points
+                self.feedback += "\nScore += {}".format(points)
+            except BaseException as e:
+                self.feedback += "\n{}: {}".format(self._errType(e), e)
 
-        try:    # Problem 4: 15 points
-            self.feedback += "\n\nProblem 4 (15 points):"
-            points = self.problem4(student_module)
-            score += points
-            self.feedback += "\nScore += " + str(points)
-        except BaseException as e:
-            self.feedback += "\nError: " + e.message
-
-        try:    # BaconSolver: 20 points
-            self.feedback += "\n\nBaconSolver (20 points):"
-            points = self.baconator(student_module)
-            score += points
-            self.feedback += "\nScore += " + str(points)
-        except BaseException as e:
-            self.feedback += "\nError: " + e.message
-
+        # Grade each problem.
+        test_one(self.problem1, "Problem 1",  5)    # Problem 1:  5 points.
+        test_one(self.problem2, "Problem 2", 10)    # Problem 2: 10 points.
+        test_one(self.problem3, "Problem 3", 15)    # Problem 3: 15 points.
+        test_one(self.baconator, "BaconSolver", 20)  # BaconSolver: 20 points.
 
         # Report final score.
-        total = 50
-        percentage = (100.0 * score) / total
-        self.feedback += "\n\nTotal score: " + str(score) + "/"
-        self.feedback += str(total) + " = " + str(percentage) + "%"
-        if   percentage >=  98.0: self.feedback += "\n\nExcellent!"
-        elif percentage >=  90.0: self.feedback += "\n\nGreat job!"
+        percentage = (100. * self.score) / total
+        self.feedback += "\n\nTotal score: {}/{} = {}%".format(
+                                    self.score, total, round(percentage, 2))
+        if   percentage >=  98: self.feedback += "\n\nExcellent!"
+        elif percentage >=  90: self.feedback += "\n\nGreat job!"
 
         # Add comments (optionally).
-        print self.feedback
+        print(self.feedback)
         comments = str(raw_input("Comments: "))
         if len(comments) > 0:
-            self.feedback += '\n\n\nComments:\n\t' + comments
-        self.score = score
+            self.feedback += '\n\n\nComments:\n\t{}'.format(comments)
 
     # Helper Functions --------------------------------------------------------
+    @staticmethod
+    def _errType(error):
+        """Get just the name of the exception 'error' in string format."""
+        return str(type(error).__name__)
+
     def strTest(self, correct, student, message):
         """Test to see if correct and student have the same
         string representation.
@@ -202,18 +189,24 @@ class _testDriver(object):
             self.feedback += "\nStudent response:\n" + str(student)
             return 0
 
-    def grade(self, points):
-        """Manually grade a problem out of 'points' with error message 'm'.
-        The points earned are returned.
+    def _grade(self, points, message=None):
+        """Manually grade a problem worth 'points'. Return the score.
+        If full points are not earned, get feedback on the problem.
         """
         credit = -1
         while credit > points or credit < 0:
             try:
-                credit = int(input("\nScore out of " + str(points) + ": "))
+                credit = int(input("\nScore out of {}: ".format(points)))
             except:
                 credit = -1
         if credit != points:
-            self.feedback += '\t\n' + str(raw_input("Feedback: "))
+            # Add comments (optionally),
+            comments = raw_input("Comments: ")
+            if len(comments) > 0:
+                self.feedback += "\n{}".format(comments)
+            # Or add a predetermined error message.
+            elif message is not None:
+                self.feedback += "\n{}".format(message)
         return credit
 
     # Test cases --------------------------------------------------------------
@@ -235,9 +228,9 @@ class _testDriver(object):
         print(Graph(_testDriver.graph4))
         print("Student graph printouts:")
         print(s.Graph(_testDriver.graph1))
-        points = self.grade(2)
+        points = self._grade(2)
         print(s.Graph(_testDriver.graph2))
-        return points + self.grade(3)
+        return points + self._grade(3)
 
     def problem2(self, s):
         """Test Graph.traverse(). 10 Points."""
@@ -245,12 +238,12 @@ class _testDriver(object):
         print(Graph(_testDriver.graph3).traverse('A'))
         print("Student response:")
         print(s.Graph(_testDriver.graph3).traverse('A'))
-        points = self.grade(5)
+        points = self._grade(5)
         print("Correct:")
         print(Graph(_testDriver.graph4).traverse('A'))
         print("Student response:")
         print(s.Graph(_testDriver.graph4).traverse('A'))
-        points += self.grade(5)
+        points += self._grade(5)
         return points
 
         '''
@@ -265,27 +258,27 @@ class _testDriver(object):
         points += test_traverse(_testDriver.graph3)*3
         points += test_traverse(_testDriver.graph4)*3
         '''
-        
+
         return points
 
-    def problem4(self, s):
+    def problem3(self, s):
         """Test Graph.shortest_path(). 15 Points."""
 
         print("Correct:")
         print(Graph(_testDriver.graph2).traverse('A'))
         print("Student response:")
         print(s.Graph(_testDriver.graph2).traverse('A'))
-        points = self.grade(5)
+        points = self._grade(5)
         print("Correct:")
         print(Graph(_testDriver.graph3).traverse('A'))
         print("Student response:")
         print(s.Graph(_testDriver.graph3).traverse('A'))
-        points += self.grade(5)
+        points += self._grade(5)
         print("Correct:")
         print(Graph(_testDriver.graph4).traverse('A'))
         print("Student response:")
         print(s.Graph(_testDriver.graph4).traverse('A'))
-        points += self.grade(5)
+        points += self._grade(5)
         return points
         '''
         def test_shortest_path(graph, target):
@@ -305,12 +298,12 @@ class _testDriver(object):
         if len(code.partition('shortest_path(')[1]) > 0:
             for line in rawcode: print line
             print("\nCheck that the above code is NetworkX-free")
-            points *= self.grade(1)
+            points *= self._grade(1)
             points *= p; feedback += f
 
         return points
         '''
-    def problem5(self, s):
+    def problem4(self, s):
         """Test convert_to_networkx. 10 points. (NOT USED HERE)"""
 
         def test_convert(graph):
@@ -338,7 +331,7 @@ class _testDriver(object):
         print("Average Bacon number: "),
         print(bacon.average_bacon("Bacon, Kevin"))
         print("Correct: %f"%2.6646202338108345)
-        return self.grade(20)
+        return self._grade(20)
 
 
 if __name__ == '__main__':

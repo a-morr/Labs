@@ -68,7 +68,7 @@ class LinkedList(object):
             ...     l.append(i)
             ...
             >>> node = l.find(5)
-            >>> node.data
+            >>> node.value
             5
             >>> l.find(10)
             ValueError: <message>

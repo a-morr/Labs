@@ -17,7 +17,7 @@ def stretch(A, a, b):
         a (float): scaling factor in the x direction.
         b (float): scaling factor in the y direction.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    raise NotImplementedError("Problem 1 Incomplete")
 
 def shear(A, a, b):
     """Slant the points in 'A' by 'a' in the x direction and 'b' in the
@@ -28,7 +28,7 @@ def shear(A, a, b):
         a (float): scaling factor in the x direction.
         b (float): scaling factor in the y direction.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    raise NotImplementedError("Problem 1 Incomplete")
 
 def reflect(A, a, b):
     """Reflect the points in 'A' about the line that passes through the origin
@@ -39,7 +39,7 @@ def reflect(A, a, b):
         a (float): x-coordinate of a point on the reflecting line.
         b (float): y-coordinate of the same point on the reflecting line.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    raise NotImplementedError("Problem 1 Incomplete")
 
 def rotate(A, theta):
     """Rotate the points in 'A' about the origin by 'theta' radians.
@@ -48,7 +48,7 @@ def rotate(A, theta):
         A ((2,n) ndarray): Array containing points in R2 stored as columns.
         theta (float): The rotation angle in radians.
     """
-    raise NotImplementedError("Problem 3 Incomplete")
+    raise NotImplementedError("Problem 1 Incomplete")
 
 
 # Problem 2
@@ -62,7 +62,7 @@ def solar_system(T, omega_e, omega_m):
         omega_e (float): The earth's angular velocity.
         omega_m (float): The moon's angular velocity.
     """
-    raise NotImplementedError("Problem 4 Incomplete")
+    raise NotImplementedError("Problem 2 Incomplete")
 
 
 def random_vector(n):
@@ -99,7 +99,7 @@ def prob3():
     that your figure accurately describes the growth, but avoid values of n
     that lead to execution times of more than 1 minute.
     """
-    raise NotImplementedError("Problem 1 Incomplete")
+    raise NotImplementedError("Problem 3 Incomplete")
 
 
 # Problem 4
@@ -110,4 +110,4 @@ def prob4():
     four sets of execution times on a regular linear scale, and one with all
     four sets of exections times on a log-log scale.
     """
-    raise NotImplementedError("Problem 2 Incomplete")
+    raise NotImplementedError("Problem 4 Incomplete")

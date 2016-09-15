@@ -82,7 +82,6 @@ Figure \ref{fig:line-fit-example} is a typical example of this idea where $\wide
     \label{fig:line-fit-example}
 \end{figure}
 
-% TODO: Replacing this data set housing_prices.npy (average housing prices since 2000).
 \begin{problem}
 The file \texttt{housing.npy} contains the purchase-only housing price index, a measure of how housing prices are changing, for the United States from 2000 to 2010.%
 \footnote{See \url{http://www.fhfa.gov/DataTools/Downloads/Pages/House-Price-Index.aspx}.}
@@ -417,7 +416,7 @@ The power method is limited by a few assumptions.
 First, not all square matrices $A$ have a dominant eigenvalue.
 However, the Perron-Frobenius theorem guarantees that if all entries of $A$ are positive, then $A$ has a dominant eigenvalue.
 Second, there is no way to choose an $\x_0$ that is guaranteed to have a nonzero projection onto the span of the eigenvectors corresponding to $\lambda$, though a random $\x_0$ will almost surely satisfy this condition.
-Even with these assumptions, a rigorous proof of that the power method converges requires tools from spectral calculus.
+Even with these assumptions, a rigorous proof that the power method converges is most convenient with tools from spectral calculus.
 See Chapter ?? of the Volume I text for details. % TODO: which chapter?
 
 \begin{problem} % Implement the power method.
@@ -446,8 +445,6 @@ Use SciPy's eigenvalue solver, \li{scipy.linalg.eig()}, to compute all of the ei
 True
 \end{lstlisting}
 \end{problem}
-
-% TODO: A note about the convergence of the power method?
 
 \subsection*{The QR Algorithm} % ----------------------------------------------
 
@@ -605,23 +602,25 @@ Thus the weighted least squares problem can be solved efficiently by representin
 \end{lstlisting}
 
 Weighted least squares is useful when some points in a data set are considered more important than others.
-Consider the problem of fitting data to an exponential curve $y = e^{ax} + b$ where points $(x_k,y_k)$ are known.
-Taking the natural log of both sides gives $\log(y) = a\log(x) + \log(b)$, so the least squares problem is as follows.
+Consider the problem of fitting data to an exponential curve $y = ae^{kx}$ where points $(x_k,y_k)$ are known.
+Taking the natural log of both sides gives $\log(y) = \log(a) + kx$, so the least squares problem is as follows.
 \[
 A\x =
 \left[\begin{array}{cc}
-\log(x_1) & 1 \\
-\log(x_2) & 1 \\
+x_1 & 1 \\
+x_2 & 1 \\
 \vdots & \vdots \\
-\log(x_m) & 1
+x_m & 1
 \end{array}\right]
-\left[\begin{array}{c} a \\ \log(b) \end{array}\right]
+\left[\begin{array}{c} k \\ \log(a) \end{array}\right]
 =
 \left[\begin{array}{c}
 \log(y_1) \\ \log(y_2) \\ \vdots \\ \log(y_m)
 \end{array}\right]
 = \b
 \]
+
+% TODO: Finish this section with some exponential data and showing how WLS works better than OLS in this case.
 
 \subsection*{Using other Norms} % ---------------------------------------------
 

@@ -239,10 +239,8 @@ class BaconSolver(object):
         movie_to_actors = parse(filename)
 
         # Extract the actors from the adjacency dictionary (values)
-        self.actors = set()
-        for movie in movie_to_actors:
-            for actor in movie_to_actors[movie]:
-                self.actors.add(actor)
+        self.actors = {actor for movie in movie_to_actors
+                             for actor in movie_to_actors[movie]}
 
         # Convert the adjacency matrix to networkX
         self.bacon_graph = convert_to_networkx(movie_to_actors)
@@ -292,9 +290,11 @@ class BaconSolver(object):
             except nx.NetworkXNoPath:
                 pass
         name = target.partition(",")[0]
-        plt.hist(bacon, bins=7)
+        plt.hist(bacon, bins=[.5, 1.5, 2.5, 3.5, 4.5, 5.5, 6.5], log=True)
         plt.title(name + " Number Distribution")
         plt.xlabel(name + " Number")
         plt.ylabel("Actors")
         plt.show()
 
+if __name__ == '__main__':
+    print BaconSolver().average_bacon()

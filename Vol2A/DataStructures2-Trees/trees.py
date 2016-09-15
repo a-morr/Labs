@@ -135,9 +135,9 @@ class BST(object):
             raise a ValueError.
 
         Examples:
-            >>> print(b)        |   >>> b.remove(1)     |   [3]
-            [4]                 |   >>> b.remove(7)     |   [5]
-            [3, 6]              |   >>> b.remove(6)     |   [8]
+            >>> print(b)        |   >>> b.remove(1)     |   [5]
+            [4]                 |   >>> b.remove(7)     |   [3, 8]
+            [3, 6]              |   >>> b.remove(6)     |
             [1, 5, 7]           |   >>> b.remove(4)     |
             [8]                 |   >>> print(b)        |
         """
