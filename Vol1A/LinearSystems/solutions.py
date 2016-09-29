@@ -117,7 +117,7 @@ def prob5(n):
     """Return a sparse n x n tridiagonal matrix with 2's along the main
     diagonal and -1's along the first sub- and super-diagonals.
     """
-    return sparse.diags([2,-1,2], [-1,0,1], shape=(n,n))
+    return sparse.diags([-1,2,-1], [-1,0,1], shape=(n,n))
 
 
 # Problem 6

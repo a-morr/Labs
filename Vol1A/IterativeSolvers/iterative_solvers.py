@@ -4,139 +4,132 @@
 <Class>
 <Date>
 """
-import numpy as np
-import scipy.sparse as spar
 
-# Helper functions
-def diag_dom(n, vals=[-4,4], num_entries=None):
+
+# Helper function
+def diag_dom(n, num_entries=None):
     """Generate a strictly diagonally dominant nxn matrix.
 
     Inputs:
-        n (int) - dimension.
-        vals (list) - range of values for off-diagonal entries.
-        num_entries (int) - number of nonzero values. If None, num_entries
-                    defaults to n^(1.5) - n.
+        n (int): the dimension of the system.
+        num_entries (int): the number of nonzero values. Defaults to n^(3/2)-n.
+
     Returns:
-        A (array) - nxn strictly diagonally dominant matrix.
+        A ((n,n) ndarray): An nxn strictly diagonally dominant matrix.
     """
     if num_entries is None:
         num_entries = int(n**1.5) - n
     A = np.zeros((n,n))
-    for _ in xrange(num_entries):
-        i = np.random.randint(0,n)
-        j = np.random.randint(0,n)
-        A[i,j] = np.random.randint(vals[0],vals[1])
+    rows = np.random.choice(np.arange(0,n), size=num_entries)
+    cols = np.random.choice(np.arange(0,n), size=num_entries)
+    data = np.random.randint(-4, 4, size=num_entries)
+    for i in xrange(num_entries):
+        A[rows[i], cols[i]] = data[i]
     for i in xrange(n):
-        A[i,i] = np.sum(np.abs(A[i,:])) + 1
+        A[i,i] = np.sum(np.abs(A[i])) + 1
     return A
 
-def spar_diag_dom(n, num_entries=None):
-    """Generate a strictly diagonally dominant sparse nxn matrix.
+
+# Problems 1 and 2
+def jacobi_method(A, b, tol=1e-8, maxiters=100, plot=False):
+    """Calculate the solution to the system Ax = b voa the Jacobi Method.
 
     Inputs:
-        n (int) - dimension
-        num_entries (int) - number of nonzero values. If None, num_entries
-                    defaults to n^(1.5) - n.
+        A ((n,n) ndarray): A square matrix.
+        b ((n,) ndarray): A vector of length n.
+        tol (float, opt): the convergence tolerance.
+        maxiters (int, opt): the maximum number of iterations to perform.
+        plot (bool, opt): if True, plot the convergence rate of the algorithm.
+            (this is for Problem 2).
 
     Returns:
-        A (spar.coo_matrix) - strictly diagonally dominantn sparse nxn matrix.
+        x ((n,) ndarray): the solution to system Ax = b.
     """
-    if num_entries is None:
-        num_entries = int(n**1.5) - n
+    raise NotImplementedError("Problem 1 Incomplete")
 
-    rows = np.random.random_integers(0,n-1,num_entries)
-    cols = np.random.random_integers(0,n-1,num_entries)
-    values = np.random.random_integers(-4,4,num_entries)
-    A = spar.coo_matrix((values, (rows,cols)), shape=(n, n))
-
-    A = A.todok()
-    Acsr = A.tocsr()
-    for i in xrange(n):
-        A[i,i] = np.abs(Acsr[i,:]).sum() + 1
-    return A.tocsr()
-
-# Problem 1
-def jacobi_method(A,b,maxiters=100,tol=1e-8):
-    """Returns the solution to the system Ax = b using the Jacobi Method.
-
-    Inputs:
-        A (array) - 2D NumPy array
-        b (array) - 1D NumPy array
-        maxiters (int, optional) - maximum iterations for algorithm to perform.
-        tol (float) - tolerance for convergence
-    Returns:
-        x (array) - solution to system Ax = b.
-        x_approx (list) - list of approximations at each iteration.
-    """
-    raise NotImplemented("Problem 1 not complete!")
-
-# Problem 2
-def plot_convergence(A, b, maxiters=100, tol=1e-8):
-    """Plot the rate of convergence for solving the system Ax = b.
-
-    Inputs:
-        A (array) - 2D NumPy array
-        b (array) - 1D NumPy array
-        maxiters (int, optional) - maximum iterations for algorithm to perform.
-        tol (float) - tolerance for convergence
-    """
-    raise NotImplemented("Problem 2 not complete!")
 
 # Problem 3
-def gauss_seidel(A,b,maxiters=100,tol=1e-8):
-    """Returns the solution to the system Ax = b using the Gauss-Seidel Method.
+def gauss_seidel(A, b, tol=1e-8, maxiters=100, plot=False):
+    """Calculate the solution to the system Ax = b via the Gauss-Seidel Method.
 
     Inputs:
-        A (array) - 2D NumPy array
-        b (array) - 1D NumPy array
-        maxiters (int, optional) - maximum iterations for algorithm to perform.
-        tol (float) - tolerance for convergence
+        A ((n,n) ndarray): A square matrix.
+        b ((n,) ndarray): A vector of length n.
+        tol (float, opt): the convergence tolerance.
+        maxiters (int, opt): the maximum number of iterations to perform.
+        plot (bool, opt): if True, plot the convergence rate of the algorithm.
+
     Returns:
-        x (array) - solution to system Ax = b.
-        x_approx (list) - list of approximations at each iteration.
+        x ((n,) ndarray): the solution to system Ax = b.
     """
-    raise NotImplemented("Problem 3 not complete!")
+    raise NotImplementedError("Problem 3 Incomplete")
 
 
 # Problem 4
-def compare_times():
+def prob4():
     """For a 5000 parameter system, compare the runtimes of the Gauss-Seidel
-    method and la.solve. Print an explanation of why Gauss-Seidel is so much
+    method and la.solve(). Print an explanation of why Gauss-Seidel is so much
     faster.
     """
-    raise NotImplemented("Problem 4 not complete!")
-
+    raise NotImplementedError("Problem 4 Incomplete")
 
 # Problem 5
-def sparse_gauss_seidel(A,b,maxiters=100,tol=1e-8):
-    """Returns the solution to the system Ax = b using the Gauss-Seidel method.
+def sparse_gauss_seidel(A, b, tol=1e-8, maxiters=100):
+    """Calculate the solution to the sparse system Ax = b via the Gauss-Seidel
+    Method.
 
     Inputs:
-        A (array) - 2D scipy.sparse matrix
-        b (array) - 1D NumPy array
-        maxiters (int, optional) - maximum iterations for algorithm to perform.
-        tol (float) - tolerance for convergence
+        A ((n,n) csr_matrix): An nxn sparse CSR matrix.
+        b ((n,) ndarray): A vector of length n.
+        tol (float, opt): the convergence tolerance.
+        maxiters (int, opt): the maximum number of iterations to perform.
+
     Returns:
-        x (array) - solution to system Ax = b.
-        x_approx (list) - list of approximations at each iteration.
+        x ((n,) ndarray): the solution to system Ax = b.
     """
-    raise NotImplemented("Problem 5 not complete!")
+    raise NotImplementedError("Problem 5 Incomplete")
+
 
 # Problem 6
-
-####### --- TO BE DETERMINED --- ########
-
-# Problem 7 (Optional)
-def sparse_sor(A,b,omega,maxiters=100, tol=1e-8):
-    """Returns the solution to the system Ax = b using Successive Over-Relaxation.
+def sparse_sor(A, b, omega, tol=1e-8, maxiters=100):
+    """Calculate the solution to the system Ax = b via Successive Over-
+    Relaxation.
 
     Inputs:
-        A (array) - 2D scipy.sparse matrix
-        b (array) - 1D NumPy array
-        maxiters (int, optional) - maximum iterations for algorithm to perform.
-        tol (float) - tolerance for convergence
+        A ((n,n) csr_matrix): An nxn sparse matrix.
+        b ((n,) ndarray): A vector of length n.
+        omega (float in [0,1]): The relaxation factor.
+        tol (float, opt): the convergence tolerance.
+        maxiters (int, opt): the maximum number of iterations to perform.
+
     Returns:
-        x (array) - solution to system Ax = b.
-        x_approx (list) - list of approximations at each iteration.
+        x ((n,) ndarray): the solution to system Ax = b.
     """
-    raise NotImplemented("Problem 7 not complete!")
+    raise NotImplementedError("Problem 6 Incomplete")
+
+
+# Problem 7
+def finite_difference(n):
+    """Return the A and b described in the finite difference problem that
+    solves Laplace's equation.
+    """
+    raise NotImplementedError("Problem 7 Incomplete")
+
+
+# Problem 8
+def compare_omega():
+    """Time sparse_sor() with omega = 1, 1.05, 1.1, ..., 1.9, 1.95, tol=1e-2,
+    and maxiters = 1000 using the A and b generated by finite_difference()
+    with n = 20. Plot the times as a function of omega.
+    """
+    raise NotImplementedError("Problem 8 Incomplete")
+
+
+# Problem 9
+def hot_plate(n):
+    """Use finite_difference() to generate the system Au = b, then solve the
+    system using SciPy's sparse system solver, scipy.sparse.linalg.spsolve().
+    Visualize the solution using a heatmap using np.meshgrid() and
+    plt.pcolormesh() ("seismic" is a good color map in this case).
+    """
+    raise NotImplementedError("Problem 9 Incomplete")
